@@ -4,6 +4,7 @@ import com.hkarabakla.entities.Book;
 import com.hkarabakla.entities.Category;
 import com.hkarabakla.repositories.CategoryRepo;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.UUID;

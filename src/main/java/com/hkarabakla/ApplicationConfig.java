@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories
@@ -31,10 +32,14 @@ class ApplicationConfig {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
 
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
+
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan("com.hkarabakla.entities");
         factory.setDataSource(dataSource());
+        factory.setJpaProperties(properties);
         return factory;
     }
 
