@@ -25,6 +25,14 @@ public class OrderService {
         orders.setCreated_date(LocalDate.now());
         orders.setTotal(99.9);
 
+        Orders orders1 = new Orders();
+        orders.setCreated_date(LocalDate.now());
+        orders.setTotal(21.9);
+
+        Orders orders2 = new Orders();
+        orders.setCreated_date(LocalDate.now());
+        orders.setTotal(19.9);
+
         Book bookList = new Book();
         bookList.setIsbn(UUID.randomUUID().toString());
         bookList.setName("Spring in Action");
@@ -45,8 +53,11 @@ public class OrderService {
         orders.setBookList(Collections.singletonList(bookList));
 
         orderRepo.save(orders);
+        orderRepo.save(orders1);
+        orderRepo.save(orders2);
 
-        System.out.println(orders);
+        System.out.println("ORDERS");
+        System.out.println(orderRepo.findAll());
 
 
     }

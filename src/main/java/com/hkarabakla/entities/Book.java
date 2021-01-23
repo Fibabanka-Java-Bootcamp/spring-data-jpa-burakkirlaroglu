@@ -1,5 +1,7 @@
 package com.hkarabakla.entities;
 
+import org.hibernate.annotations.GeneratorType;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -69,7 +71,7 @@ public class Book {
         this.publishedDate = publishedDate;
     }
 
-    public LocalDate getAddedDate() {
+    public LocalDate getAddedDate(LocalDate now) {
         return addedDate;
     }
 
