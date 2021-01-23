@@ -2,6 +2,7 @@ package com.hkarabakla.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Orders {
@@ -16,6 +17,20 @@ public class Orders {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User users;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "order_book",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_isbn"))
+    private List<Book> bookList;
+
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
+    }
 
     public int getId() {
         return id;
@@ -56,6 +71,8 @@ public class Orders {
                 "id=" + id +
                 ", created_date=" + created_date +
                 ", total=" + total +
+                //", users=" + users +
+                ", bookList=" + bookList +
                 '}';
     }
 }

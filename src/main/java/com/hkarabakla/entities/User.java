@@ -1,7 +1,10 @@
 package com.hkarabakla.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -11,7 +14,7 @@ public class User {
 
     private String name;
 
-    @OneToMany(mappedBy = "users", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
     private List<Orders> orders;
 
     @OneToOne(cascade = CascadeType.ALL)

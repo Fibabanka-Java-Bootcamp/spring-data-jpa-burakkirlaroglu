@@ -1,16 +1,12 @@
 package com.hkarabakla.services;
 
-import com.hkarabakla.entities.Address;
-import com.hkarabakla.entities.Orders;
-import com.hkarabakla.entities.User;
+import com.hkarabakla.entities.*;
 import com.hkarabakla.repositories.UserRepo;
-import net.bytebuddy.matcher.CollectionOneToOneMatcher;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+import java.util.UUID;
 
 
 @Component
@@ -27,11 +23,16 @@ public class UserService {
         User u = new User();
         u.setName("TestUser");
 
-        Orders orders = new Orders();
-        orders.setCreated_date(LocalDate.now());
-        orders.setTotal(99.9);
 
-        u.setOrders(Collections.singletonList(orders));
+
+
+        Orders firstOrder = new Orders();
+        firstOrder.setCreated_date(LocalDate.now());
+        firstOrder.setTotal(99.9);
+        firstOrder.setUser(u);
+
+        u.setOrders(Collections.singletonList(firstOrder));
+
 
         Address address = new Address();
         address.setStreet("Gazoz sokak");
@@ -40,9 +41,27 @@ public class UserService {
 
         u.setAddress(address);
 
-        repo.save(u);
+        Book bookList = new Book();
+        bookList.setIsbn(UUID.randomUUID().toString());
+        bookList.setName("Spring in Action");
+        bookList.setAddedDate(LocalDate.now());
+        bookList.setPublishedDate(LocalDate.now());
+        bookList.setPrice(20.99);
+        bookList.setCurrency("Euro");
+        bookList.setImageUrl("URL");
+        bookList.setDescription("This book is about spring framework");
 
-        System.out.println(u.getId());
+        Authors fistAuthor = new Authors();
+        fistAuthor.setName("Johnny deep");
+        fistAuthor.setBooks(Collections.singletonList(bookList));
+
+        bookList.setAuthors(Collections.singletonList(fistAuthor));
+
+        //bookList.setOrdersList(Collections.singletonList(firstOrder));
+
+        firstOrder.setBookList(Collections.singletonList(bookList));
+
+        repo.save(u);
 
         System.out.println(repo.findAll());
     }
